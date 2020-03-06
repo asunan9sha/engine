@@ -4,10 +4,12 @@
 
 #ifndef ENGINE_ASSERT_HPP
 #define ENGINE_ASSERT_HPP
-#define BREAKPOINT \
-    asm("int $3")
 
-#define ASSERT(x) if (!(x)) { fprintf( stderr, ""); BREAKPOINT; }
+#define BREAKPOINT    __debugbreak()
+
+#define ASSERT(x) if (!(x)) { \
+fprintf( stderr, "assertion failed ( %s ), %s, %i \n", #x,__FILE__,__LINE__); \
+BREAKPOINT; }
 
 
 #endif //ENGINE_ASSERT_HPP

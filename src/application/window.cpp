@@ -7,15 +7,16 @@
 #include <iostream>
 #include "macro/assert.hpp"
 
+
 Window *Window::_instance = nullptr;
 
 Window::Window() {
 
-  ASSERT(false && "test");
-  _instance = this;
- // _instance && "proizoshel trotling"
-}
+  ASSERT(!_instance && "error instanse already exist");
 
+  _instance = this;
+
+}
 
 
 void Window::initialize(const Config &config) {
@@ -43,7 +44,7 @@ void Window::initialize(const Config &config) {
 
   const int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
-  if (!status ) {
+  if (!status) {
     glfwTerminate();
     std::cout << "ERROR::GLAD::INIT : GLAD failed to initialize" << std::endl;
     return;
@@ -59,7 +60,6 @@ void Window::initialize(const Config &config) {
 }
 
 void Window::Window::run() {
-
 
 
   while (!glfwWindowShouldClose(window)) {
