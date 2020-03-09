@@ -6,7 +6,7 @@
 #define ENGINE_KEYBOARD_HPP
 
 namespace eng {
-  class Keyboard {
+  struct Keyboard {
     enum Key {
       Unknown = -1, ///< Unhandled key
       A = 0,        ///< The A key
