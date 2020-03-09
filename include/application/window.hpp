@@ -35,6 +35,10 @@ namespace eng {
 
     void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
+    static Keyboard::Key glfwKeyToEng(int key);
+
+    bool isKeyPressed(GLFWwindow *window, Keyboard::Key key);
+
     void shutdown();
 
     unsigned int GetWidth() const;
@@ -57,7 +61,7 @@ namespace eng {
 
     static Window *_instance;
 
-    bool _isOpen = true;
+    bool _isOpen;
 
     struct WindowData {
       const char *Title;
