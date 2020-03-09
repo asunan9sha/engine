@@ -14,7 +14,9 @@ file(GLOB SRC
 #инклюды
 include_directories(modules/glfw-3.3.2/include
 		modules/glad/include
-		include)
+		include
+		modules/glm/glm)
+
 
 #Сабмодуль
 add_subdirectory(modules/glfw-3.3.2)

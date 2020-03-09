@@ -6,8 +6,8 @@
 int main()
 {
 
-  Config config;
-  Window window;
+  eng::Config config;
+  eng::Window window;
 
   window.initialize(config);
   window.run();

@@ -5,46 +5,74 @@
 #ifndef ENGINE_WINDOW_HPP
 #define ENGINE_WINDOW_HPP
 
+#include <queue>
 #include <GLFW/glfw3.h>
-#include "config.hpp"
+#include <glm.hpp>
+#include <application/config.hpp>
+#include <application/event.hpp>
 
-class Window {
+namespace eng {
 
-private:
+  class Window {
 
-  GLFWwindow *window;
+  public:
 
-  static Window *_instance;
+    void initialize(const Config &config);
 
-  bool isOpen= true;
+    Window();
 
-  int width,height;
+    void run();
 
-  const char* title;
+    void setWindowSize(unsigned width, unsigned height);
 
-  bool vSync;
+    void clear();
+
+    //void draw();
+
+    //void update();
+
+    bool isVsync() const;
+
+    void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+
+    void shutdown();
+
+    unsigned int GetWidth() const;
+
+    unsigned int GetHeight() const;
+
+    const char *getTitle() const;
+
+    GLFWwindow &getGlfwWindow();
+
+    static Window *getWindow() { return _instance; };
+
+    void pushEvent(Event &e);
+
+    void pollEvent(Event &e);
+
+  private:
+
+    GLFWwindow *_window;
+
+    static Window *_instance;
+
+    bool _isOpen = true;
+
+    struct WindowData {
+      const char *Title;
+      unsigned int Width, Height;
+      bool VSync;
+
+      //EventCallbackFn EventCallback;
+    };
+
+    WindowData _windowData;
+
+    std::queue<Event> _events;
 
 
-public:
-
-  void initialize(const Config &config);
-
-  Window();
-
-  void run();
-
-  void clear();
-
-  //void draw();
-
-  //void update();
-
-  inline bool isWindowOpen() { return isOpen; }
-
-  inline GLFWwindow& getGlfwWindow() { return  *window;}
-
-  static Window *getWindow() { return _instance; };
-};
-
+  };
+}
 
 #endif //ENGINE_WINDOW_HPP
