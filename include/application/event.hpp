@@ -4,7 +4,8 @@
 
 #ifndef ENGINE_EVENT_HPP
 #define ENGINE_EVENT_HPP
-#include "Keyboard.hpp"
+#include "application/keyboard.hpp"
+#include <application/mouse.hpp>
 namespace eng {
 
   class Event
@@ -39,7 +40,7 @@ namespace eng {
 
     struct MouseButtonEvent
     {
-   //   Mouse::Button button;
+      Mouse::Button button;
       int           x;
       int           y;
     };

@@ -35,9 +35,15 @@ namespace eng {
 
     void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
+    void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+
+    bool Window::isMouseButtonPressed(GLFWwindow *window, Mouse::Button button);
+
     static Keyboard::Key glfwKeyToEng(int key);
 
     bool isKeyPressed(GLFWwindow *window, Keyboard::Key key);
+
+    static Mouse::Button glfwButtonToEng(int button);
 
     void shutdown();
 

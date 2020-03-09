@@ -14,10 +14,10 @@ namespace prv {
     eng::Event e{ };
 
     e.key.code = eng::Window::glfwKeyToEng(key);
-    e.key.alt =mods== GLFW_MOD_ALT;
-    e.key.control =mods== GLFW_MOD_CONTROL;
-    e.key.shift =mods== GLFW_MOD_SHIFT;
-    e.key.system =mods== GLFW_MOD_SUPER;
+    e.key.alt = mods == GLFW_MOD_ALT;
+    e.key.control = mods == GLFW_MOD_CONTROL;
+    e.key.shift = mods == GLFW_MOD_SHIFT;
+    e.key.system = mods == GLFW_MOD_SUPER;
     if (action == GLFW_RELEASE) {
       e.type = eng::Event::KeyReleased;;
     } else if (action == GLFW_PRESS) {
@@ -27,6 +27,25 @@ namespace prv {
     }
     p->pushEvent(e);
   }
+
+  void mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
+    auto p = reinterpret_cast<eng::Window *>(glfwGetWindowUserPointer(window));
+    eng::Event e{ };
+
+    e.mouseButton.button = eng::Window::glfwButtonToEng(button);
+    if (action == GLFW_RELEASE) {
+      e.type = eng::Event::MouseButtonReleased;;
+    } else if (action == GLFW_PRESS) {
+      e.type = eng::Event::MouseButtonPressed;
+    } else if (action == GLFW_REPEAT) {
+      e.type = eng::Event::MouseButtonPressed;
+    }
+    e.type = eng::Event::MouseButtonPressed;
+
+    p->pushEvent(e);
+
+  }
+
 }
 
 
@@ -107,23 +126,29 @@ namespace eng {
       pollEvent(event);
 //      if (event.type == Event::KeyPressed) { printf("key %i, %i\n", event.key.code,event.key.shift); }
 //    }
-      if (event.type == Event::KeyPressed) {
-        if(event.key.code==Keyboard::A){
-          printf("a\n");
+//      if (event.type == Event::KeyPressed) {
+//        if (event.key.code == Keyboard::A) {
+//          printf("a\n");
+//        }
+//        if (event.key.code == Keyboard::S) {
+//          printf("s\n");
+//        }
+//        if (event.key.code == Keyboard::D) {
+//          printf("d\n");
+//        }
+//      }
+      if (event.type == Event::MouseButtonPressed) {
+        {
+          printf("d");
         }
-        if(event.key.code==Keyboard::S){
-          printf("s\n");
+        if (event.mouseButton.button == Mouse::Left) {
+          printf("d");
         }
-        if(event.key.code==Keyboard::D){
-          printf("d\n");
-        }
+        glfwTerminate();
+
       }
     }
-    glfwTerminate();
-
   }
-
-
   void Window::clear() {
 
   }
@@ -427,8 +452,8 @@ namespace eng {
         break;
       case Keyboard::Down: glfwCode = GLFW_KEY_DOWN;
         break;
-   //   case Keyboard::CapsLock: glfwCode = GLFW_KEY_CAPS_LOCK;
-   //     break;
+        //   case Keyboard::CapsLock: glfwCode = GLFW_KEY_CAPS_LOCK;
+        //     break;
 //      case Keyboard::ScrollLock: glfwCode = GLFW_KEY_SCROLL_LOCK;
 //        break;
 //      case Keyboard::NumLock: glfwCode = GLFW_KEY_NUM_LOCK;
@@ -496,6 +521,44 @@ namespace eng {
 
     const int state = glfwGetKey(window, glfwCode);
 
+    return state == GLFW_PRESS;
+  }
+  Mouse::Button Window::glfwButtonToEng(int button) {
+    switch (button) {
+      case GLFW_MOUSE_BUTTON_1: return Mouse::Left;
+      case GLFW_MOUSE_BUTTON_2: return Mouse::Right;
+      case GLFW_MOUSE_BUTTON_3: return Mouse::Middle;
+      case GLFW_MOUSE_BUTTON_4: return Mouse::Button4;
+      case GLFW_MOUSE_BUTTON_5: return Mouse::Button5;
+      case GLFW_MOUSE_BUTTON_6: return Mouse::Button6;
+      case GLFW_MOUSE_BUTTON_7: return Mouse::Button7;
+      case GLFW_MOUSE_BUTTON_8: return Mouse::Button8;
+      default: break;
+    }
+    return Mouse::ButtonCount;
+  }
+  bool Window::isMouseButtonPressed(GLFWwindow *window, Mouse::Button button) {
+    int glfwButton = 0;
+    switch (button) {
+      case Mouse::Left: glfwButton = GLFW_MOUSE_BUTTON_1;
+        break;
+      case Mouse::Right: glfwButton = GLFW_MOUSE_BUTTON_2;
+        break;
+      case Mouse::Middle: glfwButton = GLFW_MOUSE_BUTTON_3;
+        break;
+      case Mouse::Button4: glfwButton = GLFW_MOUSE_BUTTON_4;
+        break;
+      case Mouse::Button5: glfwButton = GLFW_MOUSE_BUTTON_5;
+        break;
+      case Mouse::Button6: glfwButton = GLFW_MOUSE_BUTTON_6;
+        break;
+      case Mouse::Button7: glfwButton = GLFW_MOUSE_BUTTON_7;
+        break;
+      case Mouse::Button8: glfwButton = GLFW_MOUSE_BUTTON_8;
+        break;
+      default: break;
+    }
+    const int state = glfwGetMouseButton(window, glfwButton);
     return state == GLFW_PRESS;
   }
 }
