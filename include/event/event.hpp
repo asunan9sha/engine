@@ -4,8 +4,8 @@
 
 #ifndef ENGINE_EVENT_HPP
 #define ENGINE_EVENT_HPP
-#include "application/keyboard.hpp"
-#include <application/mouse.hpp>
+#include <event/keyboard.hpp>
+#include <event/mouse.hpp>
 namespace eng {
 
   class Event

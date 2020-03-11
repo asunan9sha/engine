@@ -16,7 +16,7 @@ namespace eng {
       Button7,
       Button8,
 
-      ButtonCount 
+      ButtonCount
     };
 
     enum Wheel {
