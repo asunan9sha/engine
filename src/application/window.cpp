@@ -40,7 +40,6 @@ namespace prv {
     } else if (action == GLFW_REPEAT) {
       e.type = eng::Event::MouseButtonPressed;
     }
-    e.type = eng::Event::MouseButtonPressed;
 
     p->pushEvent(e);
 
@@ -96,12 +95,13 @@ namespace eng {
 
     if (_windowData.VSync) {
       glfwSwapInterval(1);
-      std::cout << "WINDOW::OPTIONS::VSYNC::ON" << std::endl;
+      std::cout << "CONFIG::VSYNC::ON" << std::endl;
     } else {
-      std::cout << "WINDOW::OPTIONS::VSYNC::OFF" << std::endl;
+      std::cout << "CONFIG::VSYNC::OFF" << std::endl;
     }
 
     glfwSetKeyCallback(_window, prv::key_callback);
+    glfwSetMouseButtonCallback(_window, prv::mouse_button_callback);
 
   }
 
@@ -137,17 +137,16 @@ namespace eng {
 //          printf("d\n");
 //        }
 //      }
-      if (event.type == Event::MouseButtonPressed) {
+      if (event.type == Event::MouseButtonReleased) {
         {
-          printf("d");
+          printf("RELEASED\n");
         }
         if (event.mouseButton.button == Mouse::Left) {
-          printf("d");
+          printf("left button\n");
         }
-        glfwTerminate();
-
       }
     }
+    glfwTerminate();
   }
   void Window::clear() {
 

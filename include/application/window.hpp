@@ -9,7 +9,7 @@
 #include <GLFW/glfw3.h>
 #include <glm.hpp>
 #include <application/config.hpp>
-#include <application/event.hpp>
+#include <event/event.hpp>
 
 namespace eng {
 

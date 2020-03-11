@@ -8,6 +8,7 @@ find_package(OpenGL)
 file(GLOB SRC
 		src/*.cpp
 		src/application/*.cpp
+		src/opengl/*.cpp
 		modules/glad/src/glad.c
 		)
 
