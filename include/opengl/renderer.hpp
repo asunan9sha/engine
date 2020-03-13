@@ -5,11 +5,13 @@
 #ifndef ENGINE_RENDERER_HPP
 #define ENGINE_RENDERER_HPP
 
-#include <glad/glad.h>
-
 namespace eng {
-  class renderer {
-
+  class Renderer {
+  public:
+    static void clear();
+    static void clearColor();
+  private:
+    Renderer() = default;
   };
 }
 

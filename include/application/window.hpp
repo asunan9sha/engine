@@ -6,10 +6,11 @@
 #define ENGINE_WINDOW_HPP
 
 #include <queue>
-#include <GLFW/glfw3.h>
 #include <glm.hpp>
 #include <application/config.hpp>
 #include <event/event.hpp>
+
+struct GLFWwindow;
 
 namespace eng {
 
@@ -21,7 +22,7 @@ namespace eng {
 
     Window();
 
-    void run();
+
 
     void setWindowSize(unsigned width, unsigned height);
 
@@ -45,7 +46,13 @@ namespace eng {
 
     static Mouse::Button glfwButtonToEng(int button);
 
+    void swapBuffers(GLFWwindow *window);
+
+    void pollEvents();
+
     void shutdown();
+
+    bool isExisting() const;
 
     unsigned int GetWidth() const;
 
@@ -59,7 +66,7 @@ namespace eng {
 
     void pushEvent(Event &e);
 
-    void pollEvent(Event &e);
+    bool pollEvent(Event &e);
 
   private:
 

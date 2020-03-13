@@ -1,5 +1,14 @@
 //
 // Created by asuna on 3/11/2020.
 //
+#include "opengl/renderer.hpp"
+#include <glad/glad.h>
 
-#include "renderer.hpp"
+namespace eng {
+  void Renderer::clear() {
+    glClear(GL_COLOR_BUFFER_BIT);
+  }
+  void Renderer::clearColor() {
+    glClearColor(1.0f, 0.3f, 0.5f, 1.0f);
+  }
+}

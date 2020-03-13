@@ -2,7 +2,8 @@
 // Created by asuna on 3/11/2020.
 //
 
-#include <opengl/vertex_buffer.hpp>
+#include <opengl/vertexBuffer.hpp>
+#include <glad/glad.h>
 
 namespace eng {
 
@@ -12,13 +13,13 @@ namespace eng {
     glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
   }
-  void VertexBuffer::bind() {
+  VertexBuffer::~VertexBuffer() {
+    glDeleteBuffers(1, &_rendererID);
+  }
+  void VertexBuffer::bind() const {
     glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
   }
-  void VertexBuffer::unbind() {
+  void VertexBuffer::unbind() const {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-  }
-  VertexBuffer::~VertexBuffer() {
-    glDeleteBuffers(1,&_rendererID);
   }
 }

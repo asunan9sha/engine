@@ -2,8 +2,8 @@
 // Created by asuna on 3/11/2020.
 //
 
-#ifndef ENGINE_VERTEX_BUFFER_HPP
-#define ENGINE_VERTEX_BUFFER_HPP
+#ifndef ENGINE_VERTEXBUFFER_HPP
+#define ENGINE_VERTEXBUFFER_HPP
 
 #include <opengl/renderer.hpp>
 
@@ -18,10 +18,10 @@ namespace eng {
 
     VertexBuffer(const void* data, unsigned int size);
     ~VertexBuffer();
-    void bind();
-    void unbind();
+    void bind() const;
+    void unbind() const;
 
   };
 }
 
-#endif //ENGINE_VERTEX_BUFFER_HPP
+#endif //ENGINE_VERTEXBUFFER_HPP

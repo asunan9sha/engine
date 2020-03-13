@@ -23,12 +23,12 @@ include_directories(modules/glfw-3.3.2/include
 add_subdirectory(modules/glfw-3.3.2)
 
 #твой ебучий таргет, 1й параметр, 2й - исходники
-add_executable(sin-shluxi-eto-tvoi-target
+add_executable(engine
 		 ${SRC})
 
 #линковка блядских либ к твоему ссаному таргету
-target_link_libraries(sin-shluxi-eto-tvoi-target
+target_link_libraries(engine
 
 		glfw
-
+#		opengl32
 	)

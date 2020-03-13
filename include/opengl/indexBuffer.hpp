@@ -2,8 +2,8 @@
 // Created by asuna on 3/11/2020.
 //
 
-#ifndef ENGINE_INDEX_BUFFER_HPP
-#define ENGINE_INDEX_BUFFER_HPP
+#ifndef ENGINE_INDEXBUFFER_HPP
+#define ENGINE_INDEXBUFFER_HPP
 
 #include <opengl/renderer.hpp>
 
@@ -27,4 +27,4 @@ namespace eng {
 }
 
 
-#endif //ENGINE_INDEX_BUFFER_HPP
+#endif //ENGINE_INDEXBUFFER_HPP

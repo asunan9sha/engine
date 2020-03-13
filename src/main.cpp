@@ -2,15 +2,17 @@
 #include <iostream>
 #include "application/window.hpp"
 #include "application/config.hpp"
+#include "../include/application/application.hpp"
 
 int main()
 {
 
   eng::Config config;
-  eng::Window window;
+ // eng::Window window;
+  eng::Application application;
+  application.run();
 
-  window.initialize(config);
-  window.run();
+
 
   return 0;
 }

@@ -2,8 +2,9 @@
 // Created by asuna on 3/6/2020.
 //
 
-#include <glad/glad.h>
 #include <application/window.hpp>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <iostream>
 #include "macro/assert.hpp"
 
@@ -77,7 +78,7 @@ namespace eng {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
     _window = glfwCreateWindow(_windowData.Width, _windowData.Height, _windowData.Title, NULL, NULL);
-
+    _isOpen=true;
     glfwSetWindowUserPointer(_window, this);
 
     //glfwSetKeyCallback(m_Window, key_callback);
@@ -105,49 +106,7 @@ namespace eng {
 
   }
 
-  void Window::Window::run() {
 
-
-    while (!glfwWindowShouldClose(_window)) {
-
-
-      glClear(GL_COLOR_BUFFER_BIT);
-      glClearColor(1.0f, 0.3f, 0.5f, 1.0f);
-
-
-      //glDrawArrays(GL_TRIANGLES, 0, 3);
-
-      /* Swap front and back buffers */
-      glfwSwapBuffers(_window);
-
-      /* Poll for and process events */
-      glfwPollEvents();
-      Event event{ };
-      pollEvent(event);
-//      if (event.type == Event::KeyPressed) { printf("key %i, %i\n", event.key.code,event.key.shift); }
-//    }
-//      if (event.type == Event::KeyPressed) {
-//        if (event.key.code == Keyboard::A) {
-//          printf("a\n");
-//        }
-//        if (event.key.code == Keyboard::S) {
-//          printf("s\n");
-//        }
-//        if (event.key.code == Keyboard::D) {
-//          printf("d\n");
-//        }
-//      }
-      if (event.type == Event::MouseButtonReleased) {
-        {
-          printf("RELEASED\n");
-        }
-        if (event.mouseButton.button == Mouse::Left) {
-          printf("left button\n");
-        }
-      }
-    }
-    glfwTerminate();
-  }
   void Window::clear() {
 
   }
@@ -178,11 +137,13 @@ namespace eng {
   void Window::pushEvent(Event &e) {
     _events.emplace(e);
   }
-  void Window::pollEvent(Event &e) {
+  bool Window::pollEvent(Event &e) {
     if (!_events.empty()) {
-      e = _events.back();
+      e = _events.front();
       _events.pop();
+      return true;
     }
+    return false;
   }
   Keyboard::Key Window::glfwKeyToEng(int key) {
     switch (key) {
@@ -559,5 +520,14 @@ namespace eng {
     }
     const int state = glfwGetMouseButton(window, glfwButton);
     return state == GLFW_PRESS;
+  }
+  bool Window::isExisting() const  {
+    return glfwWindowShouldClose(_window);
+  }
+  void Window::swapBuffers(GLFWwindow *window) {
+      glfwSwapBuffers(window);
+  }
+  void Window::pollEvents() {
+    glfwPollEvents();
   }
 }
