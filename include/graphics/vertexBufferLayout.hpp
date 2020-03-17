@@ -60,7 +60,7 @@ namespace eng {
       _stride = count * sizeof(VertexBufferElement::getSizeOfType(GL_UNSIGNED_BYTE));
     }
 
-    const std::vector<VertexBufferElement> getElements() const;
+    const std::vector<VertexBufferElement>& getElements() const;
     unsigned int getStride() const;
 
   };

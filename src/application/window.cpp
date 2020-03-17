@@ -2,10 +2,10 @@
 // Created by asuna on 3/6/2020.
 //
 
+#include "pch.hpp"
 #include <application/window.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
 #include "macro/assert.hpp"
 
 namespace prv {

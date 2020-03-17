@@ -5,7 +5,8 @@
 #ifndef ENGINE_SHADER_HPP
 #define ENGINE_SHADER_HPP
 
-#include "iostream"
+#include <string>
+#include <math/math.hpp>
 
 namespace eng {
 
@@ -30,13 +31,23 @@ namespace eng {
     void bind() const;
     void unbind() const;
 
-    void setUniform4f(const std::string &name, float v0, float v1, float v2, float v3);
+    void setUniform4f(std::string_view name, const vec4 &var);
+
+    void setUniform3f(std::string_view name, const vec3 &var);
+
+    void setUniform2f(std::string_view name, const vec2 &var);
+
+    void setUniform1f(std::string_view name, float var);
+
+    void setUniform1int(std::string_view name, int var);
+
+    void setUniform4x4(std::string_view name, const mat4 &var);
 
   private:
 
-    int getUniformLocation(const std::string &name);
+    int getUniformLocation(std::string_view name);
 
-    ShaderProgramSource parceShader(std::string_view filepath);
+    ShaderProgramSource parseShader(std::string_view filepath);
 
     unsigned int createShader(const std::string &vertexShader, const std::string &fragmentShader);
 
