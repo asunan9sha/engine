@@ -5,7 +5,7 @@
 #ifndef ENGINE_INDEXBUFFER_HPP
 #define ENGINE_INDEXBUFFER_HPP
 
-#include <opengl/renderer.hpp>
+#include <graphics/renderer.hpp>
 
 namespace eng {
   class IndexBuffer {

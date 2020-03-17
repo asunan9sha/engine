@@ -3,7 +3,7 @@
 //
 
 
-#include "opengl/indexBuffer.hpp"
+#include "graphics/indexBuffer.hpp"
 #include "glad/glad.h"
 
 namespace eng {

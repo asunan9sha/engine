@@ -2,8 +2,8 @@
 // Created by asuna on 3/12/2020.
 //
 
-#include <opengl/vertexArray.hpp>
-#include <opengl/vertexBufferLayout.hpp>
+#include <graphics/vertexArray.hpp>
+#include <graphics/vertexBufferLayout.hpp>
 #include <glad/glad.h>
 
 namespace eng {

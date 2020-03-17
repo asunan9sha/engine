@@ -6,7 +6,6 @@
 #define ENGINE_WINDOW_HPP
 
 #include <queue>
-#include <glm.hpp>
 #include <application/config.hpp>
 #include <event/event.hpp>
 

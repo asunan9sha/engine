@@ -1,7 +1,7 @@
 //
 // Created by asuna on 3/11/2020.
 //
-#include "opengl/renderer.hpp"
+#include "graphics/renderer.hpp"
 #include <glad/glad.h>
 
 namespace eng {

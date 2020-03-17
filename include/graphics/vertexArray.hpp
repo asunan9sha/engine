@@ -5,8 +5,8 @@
 #ifndef ENGINE_VERTEX_ARRAY_HPP
 #define ENGINE_VERTEX_ARRAY_HPP
 
-#include <opengl/vertexBuffer.hpp>
-#include <opengl/vertexBufferLayout.hpp>
+#include <graphics/vertexBuffer.hpp>
+#include <graphics/vertexBufferLayout.hpp>
 
 namespace eng {
   class VertexArray {

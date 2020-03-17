@@ -3,13 +3,15 @@
 //
 
 #include <application/window.hpp>
-#include "application/application.hpp"
-#include <opengl/renderer.hpp>
+#include <application/application.hpp>
+#include <graphics/renderer.hpp>
 
-#include <opengl/renderer.hpp>
-#include <opengl/vertexBuffer.hpp>
-#include <opengl/indexBuffer.hpp>
-#include <opengl/vertexArray.hpp>
+#include <graphics/renderer.hpp>
+#include <graphics/vertexBuffer.hpp>
+#include <graphics/indexBuffer.hpp>
+#include <graphics/vertexArray.hpp>
+
+#include <graphics/shader.hpp>
 
 #include <glad/glad.h>
 
@@ -48,19 +50,36 @@ namespace eng {
 
       IndexBuffer ib(indices, 6);
 
+      Shader shader("res/shaders/basic.shader");
+      shader.bind();
+      shader.setUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f );
 
+      va.unbind();
+
+      shader.unbind();
+
+      float r=0.0f;
+      float increment = 0.05f;
 
       while (!window.isExisting()) {
 
         eng::Renderer::clear();
         eng::Renderer::clearColor();
        // glClearColor(1.0f, 0.3f, 0.5f, 1.0f);
+        shader.bind();
+
+        shader.setUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f );
 
         va.bind();
         ib.bind();
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
+        if (r > 1.0f)
+          increment=-0.05f;
+        else if(r < 0.0f)
+          increment = 0.05f;
+        r+=increment;
         /* Swap front and back buffers */
         window.swapBuffers(&window.getGlfwWindow());
 

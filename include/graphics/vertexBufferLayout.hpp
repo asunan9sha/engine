@@ -5,9 +5,9 @@
 #ifndef ENGINE_VERTEX_BUFFER_LAYOUT_HPP
 #define ENGINE_VERTEX_BUFFER_LAYOUT_HPP
 
-#include <opengl/GLTypes.hpp>
+#include <graphics/GLTypes.hpp>
 #include <vector>
-#include <opengl/renderer.hpp>
+#include <graphics/renderer.hpp>
 #include <macro/assert.hpp>
 namespace eng {
 

@@ -8,7 +8,7 @@ find_package(OpenGL)
 file(GLOB SRC
 		src/*.cpp
 		src/application/*.cpp
-		src/opengl/*.cpp
+		src/graphics/*.cpp
 		modules/glad/src/glad.c
 		)
 
@@ -30,5 +30,4 @@ add_executable(engine
 target_link_libraries(engine
 
 		glfw
-#		opengl32
 	)
