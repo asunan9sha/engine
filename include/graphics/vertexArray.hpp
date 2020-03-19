@@ -18,7 +18,7 @@ namespace eng {
     VertexArray();
     ~VertexArray();
 
-    void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+    void addBuffer(const VertexBuffer& vb, const BufferLayout& layout);
     void bind() const;
     void unbind() const;
   };

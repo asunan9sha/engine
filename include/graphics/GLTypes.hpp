@@ -15,6 +15,8 @@
 #define GL_SHORT                          0x1402
 #define GL_UNSIGNED_SHORT                 0x1403
 
+#define GL_CLAMP 0x2900
+
 
 
 #endif //ENGINE_GLTYPES_HPP

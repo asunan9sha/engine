@@ -4,32 +4,33 @@
 #include "pch.hpp"
 #include <graphics/vertexArray.hpp>
 #include <graphics/vertexBufferLayout.hpp>
-#include <glad/glad.h>
+#include <macro/glerrorcheck.hpp>
 
 namespace eng {
   VertexArray::VertexArray() {
-      glGenVertexArrays(1, &_rendererID);
+    GLCall(glGenVertexArrays(1, &_rendererID));
   }
   VertexArray::~VertexArray() {
-      glDeleteVertexArrays(1, &_rendererID);
+    GLCall(glDeleteVertexArrays(1, &_rendererID));
   }
-  void VertexArray::AddBuffer(const VertexBuffer &vb, const VertexBufferLayout &layout) {
+  void VertexArray::addBuffer(const VertexBuffer &vb, const BufferLayout &layout) {
     bind();
     vb.bind();
 
-    const auto &elements = layout.getElements();
-    unsigned int offset = 0;
-    for (unsigned int i = 0; i < elements.size(); i++) {
-      const auto &element =elements[i];
-      glEnableVertexAttribArray(i);
-      glVertexAttribPointer(i,element.count, element.type, element.normalized,layout.getStride(), (const void*)offset);
-      offset+=element.count * VertexBufferElement::getSizeOfType(element.type);
+    const auto &l = layout.getLayout();
+
+    for (unsigned int i = 0; i < l.size(); i++) {
+      auto &&element = l[i];
+      GLCall(glEnableVertexAttribArray(i));
+      GLCall(glVertexAttribPointer(i, element.count, element.type,
+                                   static_cast<GLboolean>(element.normalized), layout.getStride(),
+                                   reinterpret_cast<const void *> (element.offset)));
     }
   }
   void VertexArray::bind() const {
-    glBindVertexArray(_rendererID);
+    GLCall(glBindVertexArray(_rendererID));
   }
   void VertexArray::unbind() const {
-    glBindVertexArray(0);
+    GLCall(glBindVertexArray(0));
   }
 }

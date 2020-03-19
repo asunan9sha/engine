@@ -25,6 +25,7 @@ file(GLOB SRC
 		src/*.cpp
 		src/application/*.cpp
 		src/graphics/*.cpp
+		src/util/*.cpp
 
 		)
 

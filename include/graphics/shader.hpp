@@ -21,6 +21,7 @@ namespace eng {
     std::string _filepath;
     unsigned int _rendererID;
 
+    std::unordered_map<std::string , int > _uniformLocationCache;
 
 
   public:
@@ -39,7 +40,7 @@ namespace eng {
 
     void setUniform1f(std::string_view name, float var);
 
-    void setUniform1int(std::string_view name, int var);
+    void setUniform1i(std::string_view name, int var);
 
     void setUniform4x4(std::string_view name, const mat4 &var);
 
@@ -49,9 +50,9 @@ namespace eng {
 
     ShaderProgramSource parseShader(std::string_view filepath);
 
-    unsigned int createShader(const std::string &vertexShader, const std::string &fragmentShader);
+    unsigned int createShader(std::string_view vertexShader, std::string_view fragmentShader);
 
-    unsigned int compileShader(unsigned int type, const std::string &source);
+    unsigned int compileShader(unsigned int type, std::string_view source);
 
 
   };

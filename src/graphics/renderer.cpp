@@ -3,13 +3,13 @@
 //
 #include "pch.hpp"
 #include "graphics/renderer.hpp"
-#include <glad/glad.h>
+#include <macro/glerrorcheck.hpp>
 
 namespace eng {
   void Renderer::clear() {
-    glClear(GL_COLOR_BUFFER_BIT);
+    GLCall(glClear(GL_COLOR_BUFFER_BIT));
   }
   void Renderer::clearColor() {
-    glClearColor(1.0f, 0.3f, 0.5f, 1.0f);
+    GLCall(glClearColor(1.0f, 0.3f, 0.5f, 1.0f));
   }
 }

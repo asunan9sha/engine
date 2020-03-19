@@ -5,12 +5,15 @@
 #ifndef ENGINE_MATH_HPP
 #define ENGINE_MATH_HPP
 
+
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 
 namespace eng {
   using vec2 = glm::vec2;
