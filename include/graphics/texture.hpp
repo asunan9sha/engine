@@ -5,7 +5,8 @@
 #ifndef ENGINE_TEXTURE_HPP
 #define ENGINE_TEXTURE_HPP
 
-#include <pch.hpp>
+
+#include <string>
 
 namespace eng {
   class Texture {
@@ -15,18 +16,18 @@ namespace eng {
     unsigned int _rendererID;
     std::string _filepath;
     unsigned char *_localBuffer;
-    int _width, _height, _BPP;
+    unsigned int _width, _height, _BPP;
 
   public:
 
-    Texture(const std::string &_filepath);
+    explicit Texture( std::string_view filepath);
     ~Texture();
 
     void bind(unsigned int slot = 0) const;
     void unbind() const;
 
-
-    inline vec2 getsize() const { return {_width, _height} ; }
+    inline unsigned int getWidth() const { return _width  ; }
+    inline unsigned int getHeight() const { return _height  ; }
 
   };
 }

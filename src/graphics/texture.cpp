@@ -2,18 +2,22 @@
 // Created by asunan9sha on 3/18/2020.
 //
 
+#include "pch.hpp"
 #include <graphics/texture.hpp>
 #include <macro/glerrorcheck.hpp>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "util/stbimage.hpp"
 
 #include <graphics/GLTypes.hpp>
 
 namespace eng {
 
-  Texture::Texture(const std::string &_filepath)
-      : _rendererID(0), _filepath(_filepath), _localBuffer(nullptr),
+  Texture::Texture(std::string_view filepath)
+      : _rendererID(0), _filepath(filepath), _localBuffer(nullptr),
         _width(0), _height(0), _BPP(0) {
     stbi_set_flip_vertically_on_load(1);
-    _localBuffer = stbi_load(_filepath.c_str(), &_width, &_height, &_BPP, 4);
+    _localBuffer = stbi_load(_filepath.data(), (int*) &_width, (int*) &_height, (int*) &_BPP, 4);
 
 
     GLCall(glGenTextures(1, &_rendererID));

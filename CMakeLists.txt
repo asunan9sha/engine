@@ -52,3 +52,6 @@ add_executable(engine
 target_link_libraries(engine
 		glfw
 	)
+
+
+file(COPY res DESTINATION Q:/work/engine/cmake-build-debug)

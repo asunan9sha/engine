@@ -3,9 +3,9 @@
 //
 #include "pch.hpp"
 
-#include <macro/glerrorcheck.hpp>
-
 #include <graphics/shader.hpp>
+
+#include <macro/glerrorcheck.hpp>
 
 
 

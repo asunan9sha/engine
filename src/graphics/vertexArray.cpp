@@ -3,16 +3,18 @@
 //
 #include "pch.hpp"
 #include <graphics/vertexArray.hpp>
-#include <graphics/vertexBufferLayout.hpp>
 #include <macro/glerrorcheck.hpp>
 
 namespace eng {
+
   VertexArray::VertexArray() {
     GLCall(glGenVertexArrays(1, &_rendererID));
   }
+
   VertexArray::~VertexArray() {
     GLCall(glDeleteVertexArrays(1, &_rendererID));
   }
+
   void VertexArray::addBuffer(const VertexBuffer &vb, const BufferLayout &layout) {
     bind();
     vb.bind();
@@ -27,10 +29,16 @@ namespace eng {
                                    reinterpret_cast<const void *> (element.offset)));
     }
   }
+
   void VertexArray::bind() const {
     GLCall(glBindVertexArray(_rendererID));
   }
+
   void VertexArray::unbind() const {
     GLCall(glBindVertexArray(0));
   }
+  void VertexArray::draw(unsigned int indicesCount) {
+    GLCall(glDrawElements(GL_TRIANGLES, indicesCount , GL_UNSIGNED_INT, nullptr));
+  }
+
 }

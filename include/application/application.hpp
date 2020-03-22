@@ -5,10 +5,15 @@
 #ifndef ENGINE_APPLICATION_HPP
 #define ENGINE_APPLICATION_HPP
 
+
+#include <application/window.hpp>
+#include <application/config.hpp>
+
+
 namespace eng {
   class Application {
   public:
-    void run();
+     void run();
   private:
     Window window;
     Config config;

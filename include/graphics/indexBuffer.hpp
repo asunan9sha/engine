@@ -5,7 +5,6 @@
 #ifndef ENGINE_INDEXBUFFER_HPP
 #define ENGINE_INDEXBUFFER_HPP
 
-#include <graphics/renderer.hpp>
 
 namespace eng {
   class IndexBuffer {
@@ -17,7 +16,7 @@ namespace eng {
 
   public:
 
-    IndexBuffer(const unsigned int *data, unsigned int _count);
+    IndexBuffer(const unsigned int *data, unsigned int count);
     ~IndexBuffer();
     void bind() const;
     void unbind() const;

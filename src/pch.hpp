@@ -15,7 +15,6 @@
 #include <string>
 #include <vector>
 #include <math/math.hpp>
-#include <util/stbimage.hpp>
 
 
 #endif //ENGINE_PCH_HPP

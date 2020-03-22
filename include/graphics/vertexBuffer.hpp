@@ -5,8 +5,6 @@
 #ifndef ENGINE_VERTEXBUFFER_HPP
 #define ENGINE_VERTEXBUFFER_HPP
 
-#include <graphics/renderer.hpp>
-
 namespace eng {
   class VertexBuffer {
 

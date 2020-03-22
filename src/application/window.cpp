@@ -46,6 +46,10 @@ namespace prv {
 
   }
 
+  void window_close_callback(GLFWwindow *_window){
+    glfwSetWindowShouldClose(_window,GLFW_TRUE);
+  }
+
 }
 
 
@@ -67,6 +71,7 @@ namespace eng {
     _windowData.Height = config.height;
     _windowData.Title = config.title;
     _windowData.VSync = config.vSync;
+    _isOpen=true;
 
     if (!glfwInit()) {
       std::cout << "ERROR::GLFW::INIT : GLFW failed to initialize" << std::endl;
@@ -78,7 +83,7 @@ namespace eng {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
     _window = glfwCreateWindow(_windowData.Width, _windowData.Height, _windowData.Title, NULL, NULL);
-    _isOpen=true;
+    _isOpen = true;
     glfwSetWindowUserPointer(_window, this);
 
     //glfwSetKeyCallback(m_Window, key_callback);
@@ -103,6 +108,7 @@ namespace eng {
 
     glfwSetKeyCallback(_window, prv::key_callback);
     glfwSetMouseButtonCallback(_window, prv::mouse_button_callback);
+    glfwSetWindowCloseCallback(_window, prv::window_close_callback);
 
   }
 
@@ -114,7 +120,8 @@ namespace eng {
     return _windowData.VSync;
   }
   void Window::shutdown() {
-    glfwDestroyWindow(_window);
+    if (_window)
+      glfwDestroyWindow(_window);
     glfwTerminate();
   }
   unsigned int Window::GetWidth() const {
@@ -521,11 +528,11 @@ namespace eng {
     const int state = glfwGetMouseButton(window, glfwButton);
     return state == GLFW_PRESS;
   }
-  bool Window::isExisting() const  {
+  bool Window::isExisting() const {
     return glfwWindowShouldClose(_window);
   }
   void Window::swapBuffers(GLFWwindow *window) {
-      glfwSwapBuffers(window);
+    glfwSwapBuffers(window);
   }
   void Window::pollEvents() {
     glfwPollEvents();

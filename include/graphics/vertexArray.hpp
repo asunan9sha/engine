@@ -18,9 +18,11 @@ namespace eng {
     VertexArray();
     ~VertexArray();
 
-    void addBuffer(const VertexBuffer& vb, const BufferLayout& layout);
+    void addBuffer(const VertexBuffer &vb, const BufferLayout &layout);
     void bind() const;
     void unbind() const;
+
+    void draw(unsigned int indicesCount);
   };
 }
 
