@@ -110,19 +110,24 @@ namespace eng {
 
 
   Texture::Texture(std::string_view filepath, Params params)
-      : _handle(0), _filepath(filepath), _localBuffer(nullptr),
+      : _id(0), _filepath(filepath), _localBuffer(nullptr),
         _width(0), _height(0), _BPP(0), _params(params) {
 
     loadTexture();
 
-    GLCall(glGenTextures(1, &_handle));
-    GLCall(glBindTexture(convert::targetToGL(_params.target), _handle));
+    GLCall(glGenTextures(1, &_id));
+    GLCall(glBindTexture(convert::targetToGL(_params.target), _id));
 
     setParams();
 
     GLCall(glTexImage2D(convert::targetToGL(_params.target), 0, convert::formatToGL(_params.format),
         _width, _height, 0, convert::internalFormatToGL(_params.format), GL_UNSIGNED_BYTE, _localBuffer));
     GLCall(glBindTexture(convert::targetToGL(_params.target), 0));
+
+    if(_params.bindless){
+      GLCall(_handle = glGetTextureHandleARB(_id));
+      GLCall(glMakeTextureHandleResidentARB(_handle));
+    }
 
     freeBuffer();
   }
@@ -133,14 +138,18 @@ namespace eng {
   }
 
   Texture::~Texture() {
-    GLCall(glDeleteTextures(1, &_handle));
+    GLCall(glDeleteTextures(1, &_id));
   }
   void Texture::bind(unsigned int slot) const {
-    GLCall(glActiveTexture(GL_TEXTURE0 + slot));
-    GLCall(glBindTexture(convert::targetToGL(_params.target), _handle));
+    if(!_params.bindless) {
+      GLCall(glActiveTexture(GL_TEXTURE0 + slot));
+      GLCall(glBindTexture(convert::targetToGL(_params.target), _id));
+    }
   }
   void Texture::unbind() const {
-    GLCall(glBindTexture(convert::targetToGL(_params.target), 0));
+    if(!_params.bindless) {
+      GLCall(glBindTexture(convert::targetToGL(_params.target), 0));
+    }
   }
   void Texture::setParams() {
     GLCall(glTexParameteri(convert::targetToGL(_params.target), GL_TEXTURE_MIN_FILTER, convert::minfilterToGL(_params.minfilter)));

@@ -14,7 +14,6 @@
 #include <graphics/shader.hpp>
 
 
-
 namespace eng {
 
 
@@ -24,14 +23,14 @@ namespace eng {
 
       float positions[] = {
           -1.0, -1.0, 0.0, 0.0,
-          1.0, -1.0,  1.0, 0.0,
+          1.0, -1.0, 1.0, 0.0,
           1.0, 1.0, 1.0, 1.0,
-          -1.0, 1.0,  0.0, 1.0,
+          -1.0, 1.0, 0.0, 1.0,
 
           1.2, -1.0, 0.0, 0.0,
-          3.2, -1.0,  1.0, 0.0,
+          3.2, -1.0, 1.0, 0.0,
           3.2, 1.0, 1.0, 1.0,
-          1.2, 1.0,  0.0, 1.0
+          1.2, 1.0, 0.0, 1.0
 
       };
 
@@ -63,7 +62,8 @@ namespace eng {
       shader.bind();
       shader.setUniform4f("u_Color", {0.8f, 0.3f, 0.8f, 1.0f});
 
-      Texture::Params params {};
+      Texture::Params params{ };
+      params.bindless = true;
       Texture texture("res/textures/ebatti.png", params);
       Texture texture1("res/textures/prozra4nost.png", params);
 
@@ -84,8 +84,7 @@ namespace eng {
 
         shader.bind();
 
-        texture.bind();
-        shader.setUniform1i("u_Texture", 0);
+        //shader.setUniform1i("u_Texture", 0);
 
         mat4 model1 = glm::translate(mat4(1), {0.0f, 0.5f, 0.f});
         mat4 model2 = mat4(1.0f);
@@ -93,22 +92,25 @@ namespace eng {
         shader.setUniform4x4("u_Model", model2);
         shader.setUniform4x4("u_Proj", proj);
         shader.setUniform4f("u_Color", {r, 0.3f, 0.8f, 1.0f});
+        shader.setUniformInt64("u_Handle", texture.getHandle());
 
         va.bind();
         ib.bind();
 
+
         va.draw(sizeof(indices) / sizeof(unsigned int));
 
-        texture1.bind();
-        shader.setUniform1i("u_Texture", 0);
+        //shader.setUniform1i("u_Texture", 0);
         shader.setUniform4x4("u_Model", model1);
 
+        shader.setUniformInt64("u_Handle", texture1.getHandle());
+
         va.draw(sizeof(indices) / sizeof(unsigned int));
 
-        if (r > 1.0f)
-          increment = -0.05f;
-        else if (r < 0.0f)
-          increment = 0.05f;
+        if (r > 5.0f)
+          increment = -0.55f;
+        else if (r < -10.0f)
+          increment = 0.55f;
         r += increment;
         /* Swap front and back buffers */
         window.swapBuffers(&window.getGlfwWindow());

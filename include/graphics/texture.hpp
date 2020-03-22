@@ -43,9 +43,11 @@ namespace eng {
     void bind(unsigned int slot = 0) const;
 
     void unbind() const;
-    
+
     inline unsigned int getWidth() const { return _width; }
     inline unsigned int getHeight() const { return _height; }
+
+    inline uint64_t getHandle() const { return _handle; }
 
   private:
 
@@ -55,7 +57,9 @@ namespace eng {
 
   private:
 
-    unsigned int _handle;
+    uint64_t _handle=0;
+
+    unsigned int _id;
     std::string _filepath;
     unsigned char *_localBuffer;
     unsigned int _width, _height, _BPP;

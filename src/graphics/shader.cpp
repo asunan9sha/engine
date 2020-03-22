@@ -8,7 +8,6 @@
 #include <macro/glerrorcheck.hpp>
 
 
-
 namespace eng {
 
 
@@ -123,4 +122,10 @@ namespace eng {
   void Shader::setUniform4x4(std::string_view name, const mat4 &var) {
     GLCall(glUniformMatrix4fv(getUniformLocation(name.data()), 1, GL_FALSE, glm::value_ptr(var)));
   }
+  void Shader::setUniformInt64(std::string_view name, uint64_t var) {
+    uint32_t v[2];
+    std::memcpy(v, &var, sizeof(uint64_t));
+    GLCall(glUniform2ui(getUniformLocation(name.data()), v[0], v[1]));
+  }
+
 }

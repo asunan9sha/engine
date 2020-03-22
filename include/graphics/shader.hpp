@@ -38,6 +38,8 @@ namespace eng {
 
     void setUniform2f(std::string_view name, const vec2 &var);
 
+    void setUniformInt64(std::string_view name,  uint64_t var);
+
     void setUniform1f(std::string_view name, float var);
 
     void setUniform1i(std::string_view name, int var);
