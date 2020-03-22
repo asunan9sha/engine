@@ -26,7 +26,7 @@ namespace eng {
       GLCall(glEnableVertexAttribArray(i));
       GLCall(glVertexAttribPointer(i, element.count, element.type,
                                    static_cast<GLboolean>(element.normalized), layout.getStride(),
-                                   reinterpret_cast<const void *> (element.offset)));
+                                   reinterpret_cast<const void *> ((size_t)element.offset)));
     }
   }
 
