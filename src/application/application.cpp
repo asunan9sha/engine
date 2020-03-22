@@ -35,7 +35,6 @@ namespace eng {
 
       };
 
-
       unsigned int indices[] = {
           0, 2, 1,
           0, 3, 2,
@@ -47,7 +46,6 @@ namespace eng {
 
       Renderer::enableBlend(true);
       Renderer::blend(Blend::SrcAlpha, Blend::OneMinusSrcAlpha);
-
 
 
       VertexBuffer vb(positions, sizeof(positions));
@@ -65,9 +63,9 @@ namespace eng {
       shader.bind();
       shader.setUniform4f("u_Color", {0.8f, 0.3f, 0.8f, 1.0f});
 
-
-      Texture texture("res/textures/ebatti.png");
-      Texture texture1("res/textures/tree.png");
+      Texture::Params params {};
+      Texture texture("res/textures/ebatti.png", params);
+      Texture texture1("res/textures/prozra4nost.png", params);
 
 
       float r = 0.0f;
