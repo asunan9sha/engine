@@ -5,7 +5,7 @@
 #include "graphics/renderer.hpp"
 #include <macro/glerrorcheck.hpp>
 
-namespace eng::cvt {
+namespace eng::convert {
   static uint32_t toGL(Blend e) {
     switch (e) {
       case Blend::One: return GL_ONE;
@@ -43,6 +43,6 @@ namespace eng {
     }
   }
   void Renderer::blend(Blend src, Blend dst) {
-    GLCall(glBlendFunc(cvt::toGL(src), cvt::toGL(dst)));
+    GLCall(glBlendFunc(convert::toGL(src), convert::toGL(dst)));
   }
 }
