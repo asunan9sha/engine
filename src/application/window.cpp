@@ -124,10 +124,10 @@ namespace eng {
       glfwDestroyWindow(_window);
     glfwTerminate();
   }
-  unsigned int Window::GetWidth() const {
+  unsigned int Window::getWidth() const {
     return _windowData.Width;
   }
-  unsigned int Window::GetHeight() const {
+  unsigned int Window::getHeight() const {
     return _windowData.Height;
   }
   GLFWwindow &Window::getGlfwWindow() {

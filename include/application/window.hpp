@@ -52,9 +52,9 @@ namespace eng {
 
     bool isExisting() const;
 
-    unsigned int GetWidth() const;
+    unsigned int getWidth() const;
 
-    unsigned int GetHeight() const;
+    unsigned int getHeight() const;
 
     const char *getTitle() const;
 

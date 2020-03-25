@@ -75,6 +75,12 @@ namespace eng {
 
     push(name, GL_FLOAT, sizeof(float), 2, normalized);
   }
+  template<>
+  inline void BufferLayout::push<vec2u>(const char *name, unsigned int count, bool normalized) {
+    ASSERT(count <= 1 && "cant push more then 1 vec2");
+
+    push(name, GL_UNSIGNED_INT, sizeof(unsigned int), 2, normalized);
+  }
 
   template<>
   inline void BufferLayout::push<vec3>(const char *name, unsigned int count, bool normalized) {

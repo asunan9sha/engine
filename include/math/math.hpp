@@ -21,6 +21,16 @@ namespace eng {
   using vec4 = glm::vec4;
   using mat4 = glm::mat4;
   using quat = glm::quat;
+  using vec2u= glm::uvec2;
+
+  namespace math {
+    static vec3 translateXY(const mat4 &mat, const vec3 &vec) {
+      return vec3(mat[0][0] * vec.x + mat[1][0] * vec.y + mat[2][0] * vec.z + mat[3][0],
+                  mat[0][1] * vec.x + mat[1][1] * vec.y + mat[2][1] * vec.z + mat[3][1],
+                  vec.z);
+    }
+  }
 }
+
 
 #endif //ENGINE_MATH_HPP
