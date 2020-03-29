@@ -26,14 +26,17 @@ file(GLOB SRC
 		src/application/*.cpp
 		src/graphics/*.cpp
 		src/util/*.cpp
+		src/imgui/*.cpp
+		modules/imgui/*.cpp
 
 		)
 
 #инклюды
 include_directories(modules/glfw-3.3.2/include
 		modules/glad/include
-		include
 		modules/glm
+		modules/imgui
+		include
 		src)
 
 
