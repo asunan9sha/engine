@@ -29,6 +29,7 @@ namespace eng::convert {
 }
 
 namespace eng {
+
   void Renderer::clear() {
     GLCall(glClear(GL_COLOR_BUFFER_BIT));
   }
@@ -42,7 +43,15 @@ namespace eng {
       GLCall(glDisable(GL_BLEND));
     }
   }
+
   void Renderer::blend(Blend src, Blend dst) {
     GLCall(glBlendFunc(convert::toGL(src), convert::toGL(dst)));
+  }
+
+  void Renderer::draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const {
+      shader.bind();
+      va.bind();
+      ib.bind();
+      GLCall(glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr));
   }
 }
