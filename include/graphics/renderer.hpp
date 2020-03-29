@@ -5,6 +5,10 @@
 #ifndef ENGINE_RENDERER_HPP
 #define ENGINE_RENDERER_HPP
 
+#include <graphics/vertexArray.hpp>
+#include <graphics/indexBuffer.hpp>
+#include <graphics/shader.hpp>
+
 namespace eng {
 
   enum class Blend {
@@ -27,12 +31,11 @@ namespace eng {
 
   class Renderer {
   public:
-    static void clear();
-    static void clearColor();
-    static void enableBlend(bool enable);
-    static void blend(Blend src, Blend dst);
-  private:
-    Renderer() = default;
+     void clear();
+     void clearColor();
+     void enableBlend(bool enable);
+     void blend(Blend src, Blend dst);
+     void draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const;
   };
 }
 

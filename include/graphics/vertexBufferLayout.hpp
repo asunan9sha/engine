@@ -7,7 +7,6 @@
 
 #include <graphics/GLTypes.hpp>
 #include <vector>
-#include <graphics/renderer.hpp>
 #include <macro/assert.hpp>
 #include <math/math.hpp>
 
