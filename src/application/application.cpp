@@ -15,6 +15,10 @@
 
 #include <graphics/sprite.hpp>
 
+#include <imgui.h>
+#include <imgui_impl_glfw_gl3.h>
+
+
 namespace eng {
 
 
@@ -123,9 +127,10 @@ namespace eng {
 //      uint64_t handle2 = sprite1.getTexture()->getHandle();
 //      vertex[2].textureId = *reinterpret_cast<const vec2 *>(&handle2);
 
+      Renderer renderer;
 
-      Renderer::enableBlend(true);
-      Renderer::blend(Blend::SrcAlpha, Blend::OneMinusSrcAlpha);
+      renderer.enableBlend(true);
+      renderer.blend(Blend::SrcAlpha, Blend::OneMinusSrcAlpha);
 
 
       //VertexBuffer vb(positions, sizeof(positions));
@@ -157,10 +162,61 @@ namespace eng {
       ib.unbind();
       shader.unbind();
 
+
+      ImGui::CreateContext();
+      ImGui_ImplGlfwGL3_Init(&window.getGlfwWindow(), true);
+      ImGui::StyleColorsDark();
+
+      bool show_demo_window = true;
+      bool show_another_window = false;
+      ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+
       while (!window.isExisting()) {
 
-        eng::Renderer::clear();
-        eng::Renderer::clearColor();
+        renderer.clear();
+        renderer.clearColor();
+
+        ImGui_ImplGlfwGL3_NewFrame();
+
+
+        {
+          static float f = 0.0f;
+          static int counter = 0;
+          ImGui::Text("Hello, world!");                           // Display some text (you can use a format string too)
+          ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+          ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+          ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our windows open/close state
+          ImGui::Checkbox("Another Window", &show_another_window);
+
+          if (ImGui::Button("Button"))                            // Buttons return true when clicked (NB: most widgets return true when edited/activated)
+            r+=2;
+          ImGui::SameLine();
+          ImGui::Text("counter = %d", counter);
+
+          ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        }
+
+        // 2. Show another simple window. In most cases you will use an explicit Begin/End pair to name your windows.
+        if (show_another_window)
+        {
+          ImGui::Begin("Another Window", &show_another_window);
+          ImGui::Text("Hello from another window!");
+          if (ImGui::Button("Close Me"))
+            show_another_window = false;
+          ImGui::End();
+        }
+
+        // 3. Show the ImGui demo window. Most of the sample code is in ImGui::ShowDemoWindow(). Read its code to learn more about Dear ImGui!
+        if (show_demo_window)
+        {
+          ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver); // Normally user code doesn't need/want to call this because positions are saved in .ini file anyway. Here we just want to make the demo initial state a bit more friendly!
+          ImGui::ShowDemoWindow(&show_demo_window);
+        }
+
+
+
 
         shader.bind();
 
@@ -170,29 +226,38 @@ namespace eng {
         mat4 proj = glm::ortho(0.0f, static_cast<float>(config.width) , 0.0f, static_cast<float>(config.height));
         shader.setUniform4x4("u_Model", model1);
         shader.setUniform4x4("u_Proj", proj);
-        //  shader.setUniform4f("u_Color", {r, 0.3f, 0.8f, 1.0f});
-        //  shader.setUniformInt64("u_Handle", texture->getHandle());
 
-        va.bind();
-        ib.bind();
+        shader.setUniform1f("u_setR", r);
+//        va.bind();
+//        ib.bind();
 
 
-        va.draw(sizeof(indices) / sizeof(unsigned int));
 
-        //shader.setUniform1i("u_Texture", 0);
+
+
+
+
+
+        //va.draw(sizeof(indices) / sizeof(unsigned int));
+
+
         shader.setUniform4x4("u_Model", model1);
 
-        //  shader.setUniformInt64("u_Handle", texture1->getHandle());
 
-        va.draw(sizeof(indices) / sizeof(unsigned int));
 
-        if (r > 5.0f)
-          increment = -0.55f;
-        else if (r < -10.0f)
-          increment = 0.55f;
-        r += increment;
-        /* Swap front and back buffers */
+
+        //va.draw(sizeof(indices) / sizeof(unsigned int));
+
+        renderer.draw(va, ib, shader);
+
+        ImGui::Render();
+        ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
+
+
         window.swapBuffers(&window.getGlfwWindow());
+
+
+
 
         /* Poll for and process events */
         window.pollEvents();
@@ -221,6 +286,9 @@ namespace eng {
 
         }
       }
+      ImGui_ImplGlfwGL3_Shutdown();
+      ImGui::DestroyContext();
+
       window.shutdown();
       exit(0);
     }
