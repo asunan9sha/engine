@@ -54,6 +54,8 @@ namespace eng {
           4, 7, 6
       };
 
+      
+
       static const uint64_t size = 8;
 
       Texture::Params params{ };
@@ -121,11 +123,6 @@ namespace eng {
         vertex[7].color = sprite1.getColor();
         vertex[7].textureId = *reinterpret_cast<const vec2u *>(&handle1);
       }
-//      vertex[2].pos = sprite1.getPos();
-//      vertex[2].size = sprite1.getSize();
-//      vertex[2].color = sprite1.getColor();
-//      uint64_t handle2 = sprite1.getTexture()->getHandle();
-//      vertex[2].textureId = *reinterpret_cast<const vec2 *>(&handle2);
 
       Renderer renderer;
 
@@ -148,7 +145,7 @@ namespace eng {
 
       IndexBuffer ib(indices, sizeof(indices) / sizeof(unsigned int));
 
-      Shader shader("res/shaders/basic.shader");
+      Shader shader("basic");
       shader.bind();
       // shader.setUniform4f("u_Color", {0.8f, 0.3f, 0.8f, 1.0f});
 
@@ -180,14 +177,14 @@ namespace eng {
         ImGui_ImplGlfwGL3_NewFrame();
 
 
-        {
+
           static float f = 0.0f;
           static int counter = 0;
           ImGui::Text("Hello, world!");                           // Display some text (you can use a format string too)
-          ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+          ImGui::SliderFloat("float", &f, 0.0f, 10.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
           ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
-          ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our windows open/close state
+      //    ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our windows open/close state
           ImGui::Checkbox("Another Window", &show_another_window);
 
           if (ImGui::Button("Button"))                            // Buttons return true when clicked (NB: most widgets return true when edited/activated)
@@ -196,7 +193,7 @@ namespace eng {
           ImGui::Text("counter = %d", counter);
 
           ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-        }
+
 
         // 2. Show another simple window. In most cases you will use an explicit Begin/End pair to name your windows.
         if (show_another_window)
@@ -227,7 +224,11 @@ namespace eng {
         shader.setUniform4x4("u_Model", model1);
         shader.setUniform4x4("u_Proj", proj);
 
-        shader.setUniform1f("u_setR", r);
+        shader.setUniform4f("u_setColor", { clear_color.x, clear_color. y, clear_color.w, 1.0f });
+
+      //  shader.setUniform1f("u_setR", clear_color.x);
+     //   shader.setUniform1f("u_setG", clear_color.y);
+      //  shader.setUniform1f("u_setB", clear_color.w);
 //        va.bind();
 //        ib.bind();
 

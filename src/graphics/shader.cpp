@@ -7,13 +7,14 @@
 
 #include <macro/glerrorcheck.hpp>
 
+#include "util/embedded.hpp"
 
 namespace eng {
 
 
-  Shader::Shader(std::string_view filepath) : _filepath(filepath), _rendererID(0) {
+  Shader::Shader(std::string_view name) : _name(name), _rendererID(0) {
 
-    ShaderProgramSource source = parseShader(filepath);
+    ShaderProgramSource source = parseShader(name);
 
     _rendererID = createShader(source.vertexSource, source.fragmentSource);
   }
@@ -65,29 +66,17 @@ namespace eng {
     }
     return id;
   }
-  ShaderProgramSource Shader::parseShader(std::string_view filepath) {
+  ShaderProgramSource Shader::parseShader(std::string_view name) {
 
-    std::ifstream stream(filepath.data());
+    std::string vert(name);
+    vert += ".vert";
+    std::string frag(name);
+    frag += ".frag";
 
-    enum class ShaderType {
-      NONE = -1, VERTEX = 0, FRAGMENT = 1
-    };
+    auto shaderSourceVertex = Embedded::getShader(vert);
+    auto shaderSourceFragment = Embedded::getShader(frag);
 
-    std::string line;
-    std::stringstream ss[2];
-    ShaderType type = ShaderType::NONE;
-
-    while (getline(stream, line)) {
-      if (line.find("#shader") != std::string::npos) {
-        if (line.find("vertex") != std::string::npos)
-          type = ShaderType::VERTEX;
-        else if (line.find("fragment") != std::string::npos)
-          type = ShaderType::FRAGMENT;
-      } else {
-        ss[(int) type] << line << '\n';
-      }
-    }
-    return {ss[0].str(), ss[1].str()};
+    return {shaderSourceVertex, shaderSourceFragment};
   }
 
   int Shader::getUniformLocation(std::string_view name) {

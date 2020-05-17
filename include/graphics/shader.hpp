@@ -18,14 +18,14 @@ namespace eng {
   class Shader {
   private:
 
-    std::string _filepath;
+    std::string _name;
     unsigned int _rendererID;
 
     std::unordered_map<std::string , int > _uniformLocationCache;
 
 
   public:
-    Shader(std::string_view filepath);
+    Shader(std::string_view name);
     ~Shader();
 
 
@@ -50,7 +50,7 @@ namespace eng {
 
     int getUniformLocation(std::string_view name);
 
-    ShaderProgramSource parseShader(std::string_view filepath);
+    ShaderProgramSource parseShader(std::string_view name);
 
     unsigned int createShader(std::string_view vertexShader, std::string_view fragmentShader);
 
