@@ -18,6 +18,19 @@ macro(add_msvc_pch pch_header pch_source sources)
 	endif ()
 endmacro()
 
+include(cmake/cmakerc.cmake)
+
+file (GLOB RC
+		src/graphics/opengl/shaders/*.vert
+		src/graphics/opengl/shaders/*.frag)
+
+cmrc_add_resource_library(
+		engine_rc
+		NAMESPACE eng
+		PREFIX eng
+		${RC}
+)
+
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -53,6 +66,8 @@ add_executable(engine
 
 #линковка блядских либ к твоему ссаному таргету
 target_link_libraries(engine
+		cmrc::base
+		engine_rc
 		glfw
 	)
 
